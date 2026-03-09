@@ -1,0 +1,45 @@
+/* ========================================
+   Lab 2026 Study Hub - Theme Variables
+   ======================================== */
+
+/* Light Theme (Default) */
+[data-theme="light"] {
+    --bg-primary: #f8fafc;
+    --sidebar-bg: #ffffff;
+    --card-bg: #ffffff;
+    --code-bg: #1e293b;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    --border-color: #e2e8f0;
+    --hover-bg: #f1f5f9;
+    --accent: #6366f1;
+    --accent-hover: #4f46e5;
+    --accent-light: #eef2ff;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --badge-bg: #f1f5f9;
+    --badge-text: #64748b;
+    --progress-track: #e2e8f0;
+    --concept-bg: #f8fafc;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+    --bg-primary: #0f172a;
+    --sidebar-bg: #1e293b;
+    --card-bg: #1e293b;
+    --code-bg: #0f172a;
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border-color: #334155;
+    --hover-bg: #334155;
+    --accent: #818cf8;
+    --accent-hover: #6366f1;
+    --accent-light: #1e1b4b;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --badge-bg: #334155;
+    --badge-text: #94a3b8;
+    --progress-track: #334155;
+    --concept-bg: #0f172a;
+}
