@@ -6,6 +6,7 @@
     <title>Lab 2026 Study Hub — Jasil P</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/guide.css">
     <!-- Prism.js for syntax highlighting -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css">
@@ -33,12 +34,15 @@
             <a href="#quiz" class="sidebar-link" data-mode="quiz">
                 <i class="fas fa-bullseye"></i> Quiz Mode
             </a>
+            <a href="#guide" class="sidebar-link" data-mode="guide">
+                <i class="fas fa-graduation-cap"></i> Android Guide
+            </a>
         </div>
 
         <div class="sidebar-section">
             <h3>SECTIONS</h3>
             <a href="#study" class="sidebar-link filter-link active-filter" data-filter="all">
-                <i class="fas fa-layer-group"></i> All Questions <span class="badge">29</span>
+                <i class="fas fa-layer-group"></i> All Questions <span class="badge">54</span>
             </a>
             <a href="#study" class="sidebar-link filter-link" data-filter="java">
                 <i class="fab fa-java"></i> Java <span class="badge">17</span>
@@ -49,6 +53,12 @@
             <a href="#study" class="sidebar-link filter-link" data-filter="php">
                 <i class="fab fa-php"></i> PHP <span class="badge">7</span>
             </a>
+            <a href="#study" class="sidebar-link filter-link" data-filter="android">
+                <i class="fab fa-android"></i> Android <span class="badge">10</span>
+            </a>
+            <a href="#study" class="sidebar-link filter-link" data-filter="shell">
+                <i class="fas fa-terminal"></i> Shell <span class="badge">15</span>
+            </a>
         </div>
 
         <div class="sidebar-section">
@@ -56,7 +66,7 @@
             <div class="progress-bar-container">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
-            <span class="progress-text" id="progressText">0 / 29 completed</span>
+            <span class="progress-text" id="progressText">0 / 54 completed</span>
         </div>
 
         <div class="sidebar-section sidebar-bottom">
@@ -95,10 +105,12 @@
                     <input type="text" id="searchInput" placeholder="Search questions...">
                 </div>
                 <div class="filter-chips" id="filterChips">
-                    <button class="chip active" data-filter="all">All (29)</button>
+                    <button class="chip active" data-filter="all">All (54)</button>
                     <button class="chip" data-filter="java">☕ Java (17)</button>
-                    <button class="chip" data-filter="javascript">🟡 JavaScript (7)</button>
-                    <button class="chip" data-filter="php">🐘 PHP (8)</button>
+                    <button class="chip" data-filter="javascript">🟡 JavaScript (5)</button>
+                    <button class="chip" data-filter="php">🐘 PHP (7)</button>
+                    <button class="chip" data-filter="android">🤖 Android (10)</button>
+                    <button class="chip" data-filter="shell">🖥️ Shell (15)</button>
                 </div>
             </div>
             <div class="cards-container" id="studyCards"></div>
@@ -115,6 +127,8 @@
                         <option value="java">☕ Java</option>
                         <option value="javascript">🟡 JavaScript</option>
                         <option value="php">🐘 PHP</option>
+                        <option value="android">🤖 Android</option>
+                        <option value="shell">🖥️ Shell</option>
                     </select>
                     <button class="btn btn-primary" id="nextPractice">
                         <i class="fas fa-forward"></i> Next Question
@@ -144,6 +158,8 @@
                             <option value="java">☕ Java</option>
                             <option value="javascript">🟡 JavaScript</option>
                             <option value="php">🐘 PHP</option>
+                            <option value="android">🤖 Android</option>
+                            <option value="shell">🖥️ Shell</option>
                         </select>
                     </div>
                     <div class="quiz-option">
@@ -152,7 +168,7 @@
                             <option value="5">5 Questions</option>
                             <option value="10" selected>10 Questions</option>
                             <option value="15">15 Questions</option>
-                            <option value="29">All 29</option>
+                            <option value="54">All 54</option>
                         </select>
                     </div>
                     <div class="quiz-option">
@@ -203,6 +219,236 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </main>
+
+    <!-- Guide View (inside main layout via CSS) -->
+    <main class="main-content hidden" id="guideContent">
+        <div class="view" id="guideView">
+
+        <div class="view-header">
+            <h1>🤖 Android Quick Guide</h1>
+            <p>Step-by-step guide to learn all 10 Android questions in 4 hours.</p>
+        </div>
+
+        <!-- THE TEMPLATE -->
+        <div class="guide-section">
+            <h2>🚀 Step 1 — Memorize this Template <span class="guide-time">10 min</span></h2>
+            <p>This skeleton is <strong>the same for 8 out of 10 questions</strong>. Write it on paper.</p>
+            <pre><code class="language-java">import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+public class MainActivity extends Activity {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Button btn = (Button) findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                // YOUR LOGIC HERE (only this part changes!)
+
+            }
+        });
+    }
+}</code></pre>
+        </div>
+
+        <!-- Q1 -->
+        <div class="guide-section guide-easy">
+            <h2>🟢 Step 2 — Q1 Toast <span class="guide-time">5 min</span></h2>
+            <p>No button needed. Just 1 line inside <code>onCreate</code>.</p>
+            <p><strong>Extra import:</strong> <code>import android.widget.Toast;</code></p>
+            <pre><code class="language-java">Toast.makeText(this, "Hello World", Toast.LENGTH_SHORT).show();</code></pre>
+        </div>
+
+        <!-- Q6 -->
+        <div class="guide-section guide-easy">
+            <h2>🟢 Step 3 — Q6 ListView <span class="guide-time">8 min</span></h2>
+            <p>No button needed. Just 3 steps inside <code>onCreate</code>.</p>
+            <p><strong>Extra imports:</strong> <code>android.widget.ListView</code>, <code>android.widget.ArrayAdapter</code></p>
+            <pre><code class="language-java">String[] items = {"Cricket", "Football", "Tennis", "Hockey", "Chess"};
+ListView lv = (ListView) findViewById(R.id.lv);
+ArrayAdapter&lt;String&gt; adapter = new ArrayAdapter&lt;String&gt;(
+    this, android.R.layout.simple_list_item_1, items);
+lv.setAdapter(adapter);</code></pre>
+        </div>
+
+        <!-- Q7 -->
+        <div class="guide-section guide-easy">
+            <h2>🟢 Step 4 — Q7 EditText → TextView <span class="guide-time">8 min</span></h2>
+            <p>Use template. Add this inside <code>onClick</code>.</p>
+            <p><strong>Extra imports:</strong> <code>android.widget.EditText</code>, <code>android.widget.TextView</code></p>
+            <pre><code class="language-java">EditText et = (EditText) findViewById(R.id.et);
+TextView tv = (TextView) findViewById(R.id.tv);
+tv.setText("Hello " + et.getText().toString());</code></pre>
+        </div>
+
+        <!-- Q2 -->
+        <div class="guide-section guide-medium">
+            <h2>🟡 Step 5 — Q2 Add Two Numbers <span class="guide-time">10 min</span></h2>
+            <p>Use template. Add this inside <code>onClick</code>.</p>
+            <p><strong>Extra imports:</strong> <code>android.widget.EditText</code>, <code>android.widget.TextView</code></p>
+            <pre><code class="language-java">EditText e1 = (EditText) findViewById(R.id.e1);
+EditText e2 = (EditText) findViewById(R.id.e2);
+TextView tv = (TextView) findViewById(R.id.tv);
+int a = Integer.parseInt(e1.getText().toString());
+int b = Integer.parseInt(e2.getText().toString());
+tv.setText("Sum = " + (a + b));</code></pre>
+        </div>
+
+        <!-- Q5 -->
+        <div class="guide-section guide-medium">
+            <h2>🟡 Step 6 — Q5 RadioButton <span class="guide-time">10 min</span></h2>
+            <p>Use template. Add this inside <code>onClick</code>.</p>
+            <p><strong>Extra imports:</strong> <code>android.widget.RadioButton</code>, <code>android.widget.TextView</code></p>
+            <pre><code class="language-java">RadioButton rb1 = (RadioButton) findViewById(R.id.rb1);
+RadioButton rb2 = (RadioButton) findViewById(R.id.rb2);
+TextView tv     = (TextView) findViewById(R.id.tv);
+if (rb1.isChecked())      tv.setText("Male");
+else if (rb2.isChecked()) tv.setText("Female");
+else                      tv.setText("Please select");</code></pre>
+        </div>
+
+        <!-- Q10 -->
+        <div class="guide-section guide-medium">
+            <h2>🟡 Step 7 — Q10 Login <span class="guide-time">10 min</span></h2>
+            <p>Use template. Add this inside <code>onClick</code>.</p>
+            <p>⚠️ Always use <code>.equals()</code> — never <code>==</code> for Strings!</p>
+            <pre><code class="language-java">EditText etUser = (EditText) findViewById(R.id.etUser);
+EditText etPass = (EditText) findViewById(R.id.etPass);
+TextView tv     = (TextView) findViewById(R.id.tv);
+String user = etUser.getText().toString();
+String pass = etPass.getText().toString();
+if (user.equals("admin") && pass.equals("1234"))
+    tv.setText("Login Successful!");
+else
+    tv.setText("Invalid!");</code></pre>
+        </div>
+
+        <!-- Q8 -->
+        <div class="guide-section guide-medium">
+            <h2>🟡 Step 8 — Q8 Multiplication Table <span class="guide-time">10 min</span></h2>
+            <p>Use template. Add this inside <code>onClick</code>.</p>
+            <pre><code class="language-java">EditText et = (EditText) findViewById(R.id.et);
+TextView tv = (TextView) findViewById(R.id.tv);
+int n = Integer.parseInt(et.getText().toString());
+String result = "";
+for (int i = 1; i &lt;= 10; i++)
+    result += n + " x " + i + " = " + (n*i) + "\n";
+tv.setText(result);</code></pre>
+        </div>
+
+        <!-- Q9 -->
+        <div class="guide-section guide-hard">
+            <h2>🔴 Step 9 — Q9 Intent <span class="guide-time">15 min</span></h2>
+            <p>Two files needed. <strong>Extra import:</strong> <code>android.content.Intent</code></p>
+            <p><strong>MainActivity onClick:</strong></p>
+            <pre><code class="language-java">Intent i = new Intent(MainActivity.this, SecondActivity.class);
+startActivity(i);</code></pre>
+            <p><strong>SecondActivity.java</strong> (new file — same template, just a Toast inside onCreate):</p>
+            <pre><code class="language-java">Toast.makeText(this, "Second Activity!", Toast.LENGTH_SHORT).show();</code></pre>
+            <p><strong>AndroidManifest.xml</strong> — add inside <code>&lt;application&gt;</code> tag:</p>
+            <pre><code class="language-java">&lt;activity android:name=".SecondActivity"&gt;&lt;/activity&gt;</code></pre>
+        </div>
+
+        <!-- Q3 -->
+        <div class="guide-section guide-hard">
+            <h2>🔴 Step 10 — Q3 AlertDialog <span class="guide-time">15 min</span></h2>
+            <p>Use template. <strong>Extra imports:</strong> <code>android.app.AlertDialog</code>, <code>android.content.DialogInterface</code></p>
+            <pre><code class="language-java">AlertDialog.Builder b = new AlertDialog.Builder(MainActivity.this);
+b.setTitle("Alert");
+b.setMessage("Continue?");
+b.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+    public void onClick(DialogInterface d, int i) {
+        Toast.makeText(MainActivity.this, "OK", Toast.LENGTH_SHORT).show();
+    }
+});
+b.setNegativeButton("Cancel", null);
+b.show();</code></pre>
+        </div>
+
+        <!-- Q4 -->
+        <div class="guide-section guide-hard">
+            <h2>🔴 Step 11 — Q4 Menu <span class="guide-time">15 min</span></h2>
+            <p>⚠️ <strong>Different! No button.</strong> Two methods outside <code>onCreate</code> but inside the class.</p>
+            <p><strong>Extra imports:</strong> <code>android.view.Menu</code>, <code>android.view.MenuItem</code></p>
+            <p><strong>Step 1:</strong> Create <code>res/menu/mymenu.xml</code></p>
+            <pre><code class="language-java">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;menu xmlns:android="http://schemas.android.com/apk/res/android"&gt;
+    &lt;item android:id="@+id/m1" android:title="File" /&gt;
+    &lt;item android:id="@+id/m2" android:title="Edit" /&gt;
+    &lt;item android:id="@+id/m3" android:title="Help" /&gt;
+&lt;/menu&gt;</code></pre>
+            <p><strong>Step 2:</strong> Add these two methods in <code>MainActivity.java</code></p>
+            <pre><code class="language-java">public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.mymenu, menu);
+    return true;
+}
+public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == R.id.m1)
+        Toast.makeText(this, "File", Toast.LENGTH_SHORT).show();
+    else if (item.getItemId() == R.id.m2)
+        Toast.makeText(this, "Edit", Toast.LENGTH_SHORT).show();
+    else
+        Toast.makeText(this, "Help", Toast.LENGTH_SHORT).show();
+    return true;
+}</code></pre>
+        </div>
+
+        <!-- Quick Reference -->
+        <div class="guide-section">
+            <h2>📋 Quick Reference Card</h2>
+            <table class="guide-table">
+                <thead>
+                    <tr><th>Q</th><th>Topic</th><th>Button?</th><th>Key line to remember</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Q1</td><td>Toast</td><td>❌</td><td><code>Toast.makeText(...).show()</code></td></tr>
+                    <tr><td>Q2</td><td>Add Numbers</td><td>✅</td><td><code>Integer.parseInt(e1.getText().toString())</code></td></tr>
+                    <tr><td>Q3</td><td>AlertDialog</td><td>✅</td><td><code>new AlertDialog.Builder(MainActivity.this)</code></td></tr>
+                    <tr><td>Q4</td><td>Menu</td><td>❌</td><td><code>onCreateOptionsMenu</code> + <code>onOptionsItemSelected</code></td></tr>
+                    <tr><td>Q5</td><td>RadioButton</td><td>✅</td><td><code>rb1.isChecked()</code></td></tr>
+                    <tr><td>Q6</td><td>ListView</td><td>❌</td><td><code>new ArrayAdapter&lt;&gt;</code> + <code>lv.setAdapter()</code></td></tr>
+                    <tr><td>Q7</td><td>EditText→TextView</td><td>✅</td><td><code>et.getText().toString()</code></td></tr>
+                    <tr><td>Q8</td><td>Multiply Table</td><td>✅</td><td><code>for loop</code> + <code>result +=</code></td></tr>
+                    <tr><td>Q9</td><td>Intent</td><td>✅</td><td><code>new Intent(From, To.class)</code> + <code>startActivity</code></td></tr>
+                    <tr><td>Q10</td><td>Login</td><td>✅</td><td><code>user.equals("admin")</code></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Study Order -->
+        <div class="guide-section">
+            <h2>⚡ Best Study Order</h2>
+            <div class="guide-order">
+                <span class="order-step easy">Q1 Toast</span>
+                <span class="order-arrow">→</span>
+                <span class="order-step easy">Q6 ListView</span>
+                <span class="order-arrow">→</span>
+                <span class="order-step easy">Q7 EditText</span>
+                <span class="order-arrow">→</span>
+                <span class="order-step medium">Q2 Add</span>
+                <span class="order-arrow">→</span>
+                <span class="order-step medium">Q5 Radio</span>
+                <span class="order-arrow">→</span>
+                <span class="order-step medium">Q10 Login</span>
+                <span class="order-arrow">→</span>
+                <span class="order-step medium">Q8 Table</span>
+                <span class="order-arrow">→</span>
+                <span class="order-step hard">Q9 Intent</span>
+                <span class="order-arrow">→</span>
+                <span class="order-step hard">Q3 Alert</span>
+                <span class="order-arrow">→</span>
+                <span class="order-step hard">Q4 Menu</span>
+            </div>
+        </div>
+
+    </div>
+
         </div>
     </main>
 

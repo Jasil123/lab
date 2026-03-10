@@ -24,7 +24,7 @@ const App = {
     handleRoute() {
         const hash = window.location.hash.replace('#', '') || 'study';
 
-        if (['study', 'practice', 'quiz'].includes(hash)) {
+        if (['study', 'practice', 'quiz', 'guide'].includes(hash)) {
             this.switchMode(hash);
         } else if (['java', 'javascript', 'php'].includes(hash)) {
             this.switchMode('study');
@@ -41,6 +41,17 @@ const App = {
 
     switchMode(mode) {
         this.currentMode = mode;
+
+        // Toggle between main content and guide content
+        const mainContent  = document.getElementById('mainContent');
+        const guideContent = document.getElementById('guideContent');
+        if (mode === 'guide') {
+            mainContent.classList.add('hidden');
+            guideContent.classList.remove('hidden');
+        } else {
+            mainContent.classList.remove('hidden');
+            guideContent.classList.add('hidden');
+        }
 
         // Hide all views
         document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
@@ -59,6 +70,9 @@ const App = {
         if (mode === 'practice') {
             Practice.loadQuestion();
         }
+
+        // Re-highlight code blocks
+        if (typeof Prism !== 'undefined') Prism.highlightAll();
 
         // Close mobile menu
         this.closeMobileMenu();

@@ -1657,6 +1657,969 @@ if (isset($_POST['submit'])) {
         answer: 0,
         explanation: "name='items[]' tells PHP to receive values as array"
     }
+},
+
+// ==================== ANDROID ====================
+
+{
+    id: "android-01",
+    category: "android",
+    title: "Toast Hello World",
+    description: "Write a program to Toast Hello World",
+    code: `import android.app.Activity;
+import android.os.Bundle;
+import android.widget.Toast;
+
+public class MainActivity extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Toast.makeText(this, "Hello World", Toast.LENGTH_SHORT).show();
+    }
+}`,
+    language: "java",
+    concepts: ["Toast.makeText(context, message, duration)", "Toast.LENGTH_SHORT / Toast.LENGTH_LONG", ".show() to display the toast"],
+    blanks: [
+        { text: "Toast.makeText(this, \"Hello World\", Toast.LENGTH_SHORT).show();", hint: "Context, message, duration" }
+    ],
+    quiz: {
+        question: "Which method displays a Toast message?",
+        options: [".show()", ".display()", ".print()", ".toast()"],
+        answer: 0,
+        explanation: ".show() is called at the end of Toast.makeText() to display it"
+    }
+},
+
+{
+    id: "android-02",
+    category: "android",
+    title: "Add Two Numbers",
+    description: "Write a program to add two numbers",
+    code: `// activity_main.xml: add EditText(id=e1), EditText(id=e2), Button(id=btn), TextView(id=tv)
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Button btn = (Button) findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                EditText e1 = (EditText) findViewById(R.id.e1);
+                EditText e2 = (EditText) findViewById(R.id.e2);
+                TextView tv = (TextView) findViewById(R.id.tv);
+
+                int a = Integer.parseInt(e1.getText().toString());
+                int b = Integer.parseInt(e2.getText().toString());
+
+                tv.setText("Sum = " + (a + b));
+            }
+        });
+    }
+}`,
+    language: "java",
+    concepts: ["findViewById() to get views", "getText().toString() reads EditText value", "Integer.parseInt() converts String to int", "setText() updates TextView"],
+    blanks: [
+        { text: "Integer.parseInt(et1.getText().toString())", hint: "Convert EditText value to int" },
+        { text: "tv.setText(\"Sum = \" + sum)", hint: "Show result in TextView" }
+    ],
+    quiz: {
+        question: "How do you read text from an EditText?",
+        options: ["getText().toString()", "getValue()", "readText()", "getText()"],
+        answer: 0,
+        explanation: "getText() returns Editable, .toString() converts it to String"
+    }
+},
+
+{
+    id: "android-03",
+    category: "android",
+    title: "Alert Box with OK and Cancel",
+    description: "Write a program to Display an alert box with OK and Cancel",
+    code: `// activity_main.xml: add Button(id=btn)
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+public class MainActivity extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Button btn = (Button) findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                AlertDialog.Builder b = new AlertDialog.Builder(MainActivity.this);
+                b.setTitle("Alert");
+                b.setMessage("Do you want to continue?");
+                b.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface d, int i) {
+                        Toast.makeText(MainActivity.this, "OK clicked", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                b.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface d, int i) {
+                        Toast.makeText(MainActivity.this, "Cancel clicked", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                b.show();
+            }
+        });
+    }
+}`,
+    language: "java",
+    concepts: ["AlertDialog.Builder to create dialog", "setPositiveButton for OK", "setNegativeButton for Cancel", "builder.show() displays dialog"],
+    blanks: [
+        { text: "new AlertDialog.Builder(MainActivity.this)", hint: "Create builder with context" },
+        { text: "setPositiveButton(\"OK\", ...)", hint: "OK button handler" }
+    ],
+    quiz: {
+        question: "Which method adds OK button to AlertDialog?",
+        options: ["setPositiveButton()", "setOkButton()", "addButton()", "setConfirmButton()"],
+        answer: 0,
+        explanation: "setPositiveButton() is used for the OK/confirm action"
+    }
+},
+
+{
+    id: "android-04",
+    category: "android",
+    title: "Menu with Three Items",
+    description: "Write a Program to create menu with three menu items",
+    code: `// Step 1: res/menu/mymenu.xml  (Right click res → New → Android XML File → Menu)
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/m1" android:title="File" />
+    <item android:id="@+id/m2" android:title="Edit" />
+    <item android:id="@+id/m3" android:title="Help" />
+</menu>
+
+// Step 2: MainActivity.java
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+
+public class MainActivity extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mymenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.m1)
+            Toast.makeText(this, "File", Toast.LENGTH_SHORT).show();
+        else if (item.getItemId() == R.id.m2)
+            Toast.makeText(this, "Edit", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this, "Help", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+}`,
+    language: "java",
+    concepts: ["onCreateOptionsMenu() inflates the menu", "onOptionsItemSelected() handles clicks", "getMenuInflater().inflate() loads XML menu", "Menu XML file in res/menu/"],
+    blanks: [
+        { text: "getMenuInflater().inflate(R.menu.main_menu, menu)", hint: "Inflate menu from XML" },
+        { text: "onOptionsItemSelected(MenuItem item)", hint: "Handle menu item click" }
+    ],
+    quiz: {
+        question: "Where is the menu XML file stored?",
+        options: ["res/menu/", "res/layout/", "res/drawable/", "res/values/"],
+        answer: 0,
+        explanation: "Menu XML files go in the res/menu/ folder"
+    }
+},
+
+{
+    id: "android-05",
+    category: "android",
+    title: "Select Gender using Radio Button",
+    description: "Write a Program to Select gender using radio button",
+    code: `// activity_main.xml: add RadioButton(id=rb1,text=Male), RadioButton(id=rb2,text=Female),
+//                    Button(id=btn), TextView(id=tv)
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.TextView;
+
+public class MainActivity extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Button btn = (Button) findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                RadioButton rb1 = (RadioButton) findViewById(R.id.rb1);
+                RadioButton rb2 = (RadioButton) findViewById(R.id.rb2);
+                TextView tv     = (TextView) findViewById(R.id.tv);
+
+                if (rb1.isChecked())
+                    tv.setText("Gender: Male");
+                else if (rb2.isChecked())
+                    tv.setText("Gender: Female");
+                else
+                    tv.setText("Please select");
+            }
+        });
+    }
+}`,
+    language: "java",
+    concepts: ["RadioButton.isChecked() returns true/false", "RadioGroup groups radio buttons", "Only one radio button can be selected at a time"],
+    blanks: [
+        { text: "male.isChecked()", hint: "Check if radio button is selected" },
+        { text: "tv.setText(\"Gender: Male\")", hint: "Display selected gender" }
+    ],
+    quiz: {
+        question: "How do you check if a RadioButton is selected?",
+        options: ["isChecked()", "isSelected()", "isEnabled()", "isActive()"],
+        answer: 0,
+        explanation: "isChecked() returns true if the RadioButton is selected"
+    }
+},
+
+{
+    id: "android-06",
+    category: "android",
+    title: "Check Items Listed (ListView)",
+    description: "Write a Program to check the items listed",
+    code: `// activity_main.xml: add ListView(id=lv)
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+public class MainActivity extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        String[] items = {"Cricket", "Football", "Tennis", "Hockey", "Chess"};
+
+        ListView lv = (ListView) findViewById(R.id.lv);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_list_item_1,
+            items
+        );
+        lv.setAdapter(adapter);
+    }
+}`,
+    language: "java",
+    concepts: ["ListView displays a scrollable list", "ArrayAdapter connects data to ListView", "android.R.layout.simple_list_item_1 is built-in row layout", "String[] holds the list items"],
+    blanks: [
+        { text: "new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items)", hint: "Create adapter with context, layout, data" },
+        { text: "lv.setAdapter(adapter)", hint: "Connect adapter to ListView" }
+    ],
+    quiz: {
+        question: "What does ArrayAdapter do?",
+        options: ["Connects data array to ListView", "Creates the list items", "Styles the ListView", "Sorts the list"],
+        answer: 0,
+        explanation: "ArrayAdapter bridges the String[] data and the ListView widget"
+    }
+},
+
+{
+    id: "android-07",
+    category: "android",
+    title: "Fetch EditText and Display in TextView",
+    description: "Write a program to fetch data from an EditText and display it in a TextView",
+    code: `// activity_main.xml: add EditText(id=et), Button(id=btn), TextView(id=tv)
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Button btn = (Button) findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                EditText et = (EditText) findViewById(R.id.et);
+                TextView tv = (TextView) findViewById(R.id.tv);
+                String name = et.getText().toString();
+                tv.setText("Hello " + name);
+            }
+        });
+    }
+}`,
+    language: "java",
+    concepts: ["getText().toString() reads input from EditText", "setText() updates the TextView", "findViewById() links Java to XML view"],
+    blanks: [
+        { text: "et.getText().toString()", hint: "Read value from EditText" },
+        { text: "tv.setText(\"Hello, \" + name)", hint: "Show value in TextView" }
+    ],
+    quiz: {
+        question: "What does getText().toString() do?",
+        options: ["Reads EditText value as String", "Sets EditText value", "Clears EditText", "Hides EditText"],
+        answer: 0,
+        explanation: "getText() returns Editable; .toString() converts it to a readable String"
+    }
+},
+
+{
+    id: "android-08",
+    category: "android",
+    title: "Multiplication Table",
+    description: "Write a program to display multiplication table of a given number",
+    code: `// activity_main.xml: add EditText(id=et), Button(id=btn), TextView(id=tv)
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Button btn = (Button) findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                EditText et = (EditText) findViewById(R.id.et);
+                TextView tv = (TextView) findViewById(R.id.tv);
+                int n = Integer.parseInt(et.getText().toString());
+                String result = "";
+                for (int i = 1; i <= 10; i++) {
+                    result += n + " x " + i + " = " + (n * i) + "\\n";
+                }
+                tv.setText(result);
+            }
+        });
+    }
+}`,
+    language: "java",
+    concepts: ["StringBuilder to build multi-line output", "for loop from 1 to 10", "\\n for new line in TextView"],
+    blanks: [
+        { text: "new StringBuilder()", hint: "Build multi-line string" },
+        { text: "sb.append(n + \" x \" + i + \" = \" + (n*i) + \"\\n\")", hint: "Append each table line" }
+    ],
+    quiz: {
+        question: "Why use StringBuilder for multiplication table?",
+        options: ["To efficiently build multi-line text", "It is faster than int", "Required by Android", "To parse numbers"],
+        answer: 0,
+        explanation: "StringBuilder efficiently concatenates multiple strings without creating new objects each time"
+    }
+},
+
+{
+    id: "android-09",
+    category: "android",
+    title: "Start Another Activity using Intent",
+    description: "Write a program to start another activity from your own activity using intent",
+    code: `// Step 1: MainActivity.java
+// activity_main.xml: add Button(id=btn)
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+public class MainActivity extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Button btn = (Button) findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, SecondActivity.class);
+                startActivity(i);
+            }
+        });
+    }
+}
+
+// Step 2: SecondActivity.java
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.Toast;
+
+public class SecondActivity extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
+        Toast.makeText(this, "Welcome to Second Activity", Toast.LENGTH_SHORT).show();
+    }
+}
+
+// Step 3: AndroidManifest.xml — add inside <application> tag:
+// <activity android:name=".SecondActivity"></activity>`,
+    language: "java",
+    concepts: ["Intent links two activities", "new Intent(CurrentActivity.this, TargetActivity.class)", "startActivity(intent) launches the new screen", "Declare activity in AndroidManifest.xml"],
+    blanks: [
+        { text: "new Intent(MainActivity.this, SecondActivity.class)", hint: "From which activity to which" },
+        { text: "startActivity(intent)", hint: "Launch the intent" }
+    ],
+    quiz: {
+        question: "What does startActivity(intent) do?",
+        options: ["Opens another Activity", "Sends a message", "Starts a service", "Shows a toast"],
+        answer: 0,
+        explanation: "startActivity(intent) launches the Activity specified in the Intent"
+    }
+},
+
+{
+    id: "android-10",
+    category: "android",
+    title: "Login with Username and Password",
+    description: "Write a program for Log in Using username and password",
+    code: `// activity_main.xml: add EditText(id=etUser), EditText(id=etPass), Button(id=btn), TextView(id=tv)
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Button btn = (Button) findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                EditText etUser = (EditText) findViewById(R.id.etUser);
+                EditText etPass = (EditText) findViewById(R.id.etPass);
+                TextView tv     = (TextView) findViewById(R.id.tv);
+
+                String user = etUser.getText().toString();
+                String pass = etPass.getText().toString();
+
+                if (user.equals("admin") && pass.equals("1234"))
+                    tv.setText("Login Successful!");
+                else
+                    tv.setText("Invalid credentials!");
+            }
+        });
+    }
+}`,
+    language: "java",
+    concepts: ["Use .equals() to compare Strings (not ==)", "EditText for password — set inputType to textPassword in XML", "Simple credential check with if-else"],
+    blanks: [
+        { text: "user.equals(\"admin\") && pass.equals(\"1234\")", hint: "Compare both username and password" },
+        { text: "tv.setText(\"Login Successful!\")", hint: "Show result in TextView" }
+    ],
+    quiz: {
+        question: "Why use .equals() instead of == for String comparison?",
+        options: ["== compares references, .equals() compares values", "They are the same", ".equals() is faster", "== is for numbers only"],
+        answer: 0,
+        explanation: "In Java, == checks if two variables point to the same object; .equals() checks if their content is the same"
+    }
+},
+
+// ==================== SHELL ====================
+
+{
+    id: "shell-01",
+    category: "shell",
+    title: "Area of a Circle",
+    description: "Write a shell script to find area of a circle",
+    code: `#!/bin/bash
+echo "Enter radius:"
+read r
+area=$(echo "scale=2; 3.14159 * $r * $r" | bc)
+echo "Area of circle = $area"`,
+    language: "bash",
+    concepts: ["read gets user input", "bc is a calculator for decimal math", "scale=2 sets 2 decimal places", "$(…) captures command output"],
+    blanks: [
+        { text: "read r", hint: "Read radius from user" },
+        { text: "echo \"scale=2; 3.14159 * $r * $r\" | bc", hint: "Calculate area using bc" }
+    ],
+    quiz: {
+        question: "What does 'bc' do in shell scripting?",
+        options: ["Basic Calculator for math operations", "Bash Command", "Binary Convert", "Block Copy"],
+        answer: 0,
+        explanation: "bc is a command-line calculator that handles decimal/floating point math"
+    }
+},
+
+{
+    id: "shell-02",
+    category: "shell",
+    title: "Even or Odd",
+    description: "Write a shell script to find given number is even or odd",
+    code: `#!/bin/bash
+echo "Enter a number:"
+read n
+if [ $((n % 2)) -eq 0 ]
+then
+    echo "$n is Even"
+else
+    echo "$n is Odd"
+fi`,
+    language: "bash",
+    concepts: ["$(( )) for arithmetic", "% is modulo operator", "-eq means equal to in shell", "if/then/else/fi syntax"],
+    blanks: [
+        { text: "$((n % 2)) -eq 0", hint: "Modulo 2 equals 0 means even" }
+    ],
+    quiz: {
+        question: "What does -eq mean in shell?",
+        options: ["Equal to", "Not equal", "Greater than", "Less than"],
+        answer: 0,
+        explanation: "-eq is the shell arithmetic comparison for 'equal to'"
+    }
+},
+
+{
+    id: "shell-03",
+    category: "shell",
+    title: "Menu Driven Calculator",
+    description: "Write a shell script to make a menu driven calculator using case",
+    code: `#!/bin/bash
+echo "Enter two numbers:"
+read a b
+echo "1. Add  2. Subtract  3. Multiply  4. Divide"
+echo "Enter choice:"
+read choice
+case $choice in
+    1) echo "Result = $((a + b))" ;;
+    2) echo "Result = $((a - b))" ;;
+    3) echo "Result = $((a * b))" ;;
+    4) echo "Result = $((a / b))" ;;
+    *) echo "Invalid choice" ;;
+esac`,
+    language: "bash",
+    concepts: ["case $var in ... esac for multi-branch", ";; ends each case", "* is the default case", "$(( )) for arithmetic"],
+    blanks: [
+        { text: "case $choice in", hint: "Start case statement" },
+        { text: "*) echo \"Invalid choice\" ;;", hint: "Default/fallback case" }
+    ],
+    quiz: {
+        question: "What does ;; mean in a case statement?",
+        options: ["End of a case branch", "Comment", "Continue to next case", "Exit script"],
+        answer: 0,
+        explanation: ";; marks the end of each case option block"
+    }
+},
+
+{
+    id: "shell-04",
+    category: "shell",
+    title: "Greatest of Three Numbers",
+    description: "Write a shell script to find the greatest of three numbers",
+    code: `#!/bin/bash
+echo "Enter three numbers:"
+read a b c
+if [ $a -gt $b ] && [ $a -gt $c ]
+then
+    echo "$a is greatest"
+elif [ $b -gt $c ]
+then
+    echo "$b is greatest"
+else
+    echo "$c is greatest"
+fi`,
+    language: "bash",
+    concepts: ["-gt means greater than", "&& is logical AND in shell", "if/elif/else/fi for multiple conditions"],
+    blanks: [
+        { text: "$a -gt $b ] && [ $a -gt $c", hint: "a greater than both b and c" },
+        { text: "elif [ $b -gt $c ]", hint: "Else-if for second condition" }
+    ],
+    quiz: {
+        question: "What does -gt mean in shell?",
+        options: ["Greater than", "Greater than or equal", "Less than", "Not equal"],
+        answer: 0,
+        explanation: "-gt is the shell comparison operator for 'greater than'"
+    }
+},
+
+{
+    id: "shell-05",
+    category: "shell",
+    title: "Mean and Standard Deviation",
+    description: "Write a shell script to compute mean and standard deviation of three numbers",
+    code: `#!/bin/bash
+
+echo "Enter three numbers:"
+read a b c
+
+# Mean calculation
+mean=$(( (a + b + c) / 3 ))
+
+# Standard deviation calculation
+d1=$((a - mean))
+d2=$((b - mean))
+d3=$((c - mean))
+
+sd=$(echo "sqrt(($d1*$d1 + $d2*$d2 + $d3*$d3)/3)" | bc -l)
+
+echo "Mean = $mean"
+echo "Standard Deviation = $sd"`,
+    language: "bash",
+    concepts: ["bc -l loads math library (enables sqrt)", "scale=2 for 2 decimal places", "^ for power/exponent in bc", "$(…) captures result"],
+    blanks: [
+        { text: "($a + $b + $c) / 3", hint: "Formula for mean" },
+        { text: "sqrt($var)", hint: "Square root for standard deviation" }
+    ],
+    quiz: {
+        question: "Why use bc -l instead of bc?",
+        options: ["To enable math functions like sqrt()", "To use less memory", "For faster execution", "To read input"],
+        answer: 0,
+        explanation: "bc -l loads the math library which provides functions like sqrt(), sin(), cos() etc."
+    }
+},
+
+{
+    id: "shell-06",
+    category: "shell",
+    title: "Sum of All Digits",
+    description: "Write a shell script to find sum of all digits from a given number",
+    code: `#!/bin/bash
+echo "Enter a number:"
+read n
+sum=0
+while [ $n -gt 0 ]
+do
+    digit=$((n % 10))
+    sum=$((sum + digit))
+    n=$((n / 10))
+done
+echo "Sum of digits = $sum"`,
+    language: "bash",
+    concepts: ["% 10 extracts last digit", "/ 10 removes last digit", "while loop runs until n becomes 0", "sum accumulates digits"],
+    blanks: [
+        { text: "digit=$((n % 10))", hint: "Extract last digit" },
+        { text: "n=$((n / 10))", hint: "Remove last digit" }
+    ],
+    quiz: {
+        question: "How do you extract the last digit of a number?",
+        options: ["n % 10", "n / 10", "n - 10", "n * 10"],
+        answer: 0,
+        explanation: "Modulo 10 gives the remainder when divided by 10, which is the last digit"
+    }
+},
+
+{
+    id: "shell-07",
+    category: "shell",
+    title: "Reverse of a Number",
+    description: "Write a shell script to find reverse of a number",
+    code: `#!/bin/bash
+echo "Enter a number:"
+read n
+rev=0
+while [ $n -gt 0 ]
+do
+    digit=$((n % 10))
+    rev=$((rev * 10 + digit))
+    n=$((n / 10))
+done
+echo "Reversed number = $rev"`,
+    language: "bash",
+    concepts: ["Build reverse by: rev = rev * 10 + last_digit", "% 10 extracts last digit", "/ 10 removes last digit", "while loop until n = 0"],
+    blanks: [
+        { text: "rev=$((rev * 10 + digit))", hint: "Build reverse number" }
+    ],
+    quiz: {
+        question: "What is the formula to build a reversed number?",
+        options: ["rev = rev * 10 + last_digit", "rev = rev + last_digit", "rev = last_digit * 10", "rev = n / 10"],
+        answer: 0,
+        explanation: "Multiply current reverse by 10 (shift left) then add the new digit"
+    }
+},
+
+{
+    id: "shell-08",
+    category: "shell",
+    title: "Prime Numbers up to N",
+    description: "Write a shell script to find prime numbers up to a given number",
+    code: `#!/bin/bash
+echo "Enter a number:"
+read n
+echo "Prime numbers up to $n:"
+for (( i=2; i<=n; i++ ))
+do
+    flag=0
+    for (( j=2; j<i; j++ ))
+    do
+        if [ $((i % j)) -eq 0 ]
+        then
+            flag=1
+            break
+        fi
+    done
+    if [ $flag -eq 0 ]
+    then
+        echo $i
+    fi
+done`,
+    language: "bash",
+    concepts: ["flag=0 means prime; flag=1 means not prime", "break exits inner loop early", "for (( ; ; )) is C-style for loop in bash", "Nested loops for divisibility check"],
+    blanks: [
+        { text: "flag=0", hint: "Assume prime initially" },
+        { text: "if [ $flag -eq 0 ]", hint: "Check if still prime" }
+    ],
+    quiz: {
+        question: "What does 'break' do inside a loop?",
+        options: ["Exits the current loop immediately", "Skips to next iteration", "Ends the script", "Prints a line"],
+        answer: 0,
+        explanation: "break exits the innermost loop immediately when a condition is met"
+    }
+},
+
+{
+    id: "shell-09",
+    category: "shell",
+    title: "N Fibonacci Numbers",
+    description: "Write a shell script to find n Fibonacci numbers",
+    code: `#!/bin/bash
+echo "Enter how many Fibonacci numbers:"
+read n
+a=0
+b=1
+echo "Fibonacci series:"
+for (( i=1; i<=n; i++ ))
+do
+    echo $a
+    temp=$((a + b))
+    a=$b
+    b=$temp
+done`,
+    language: "bash",
+    concepts: ["Start with a=0, b=1", "Next = a + b, then shift: a=b, b=next", "temp stores the new value before overwriting", "for loop runs n times"],
+    blanks: [
+        { text: "temp=$((a + b))", hint: "Calculate next Fibonacci number" },
+        { text: "a=$b ; b=$temp", hint: "Shift the two values forward" }
+    ],
+    quiz: {
+        question: "In Fibonacci, what is the next number after a and b?",
+        options: ["a + b", "a - b", "a * b", "a / b"],
+        answer: 0,
+        explanation: "Each Fibonacci number is the sum of the two preceding numbers"
+    }
+},
+
+{
+    id: "shell-10",
+    category: "shell",
+    title: "Armstrong Number",
+    description: "Write a shell script to check whether a given number is Armstrong or not",
+    code: `#!/bin/bash
+echo "Enter a number:"
+read n
+temp=$n
+sum=0
+while [ $temp -gt 0 ]
+do
+    digit=$((temp % 10))
+    sum=$((sum + digit * digit * digit))
+    temp=$((temp / 10))
+done
+if [ $sum -eq $n ]
+then
+    echo "$n is an Armstrong number"
+else
+    echo "$n is not an Armstrong number"
+fi`,
+    language: "bash",
+    concepts: ["Armstrong: sum of cubes of digits == original number", "Store original in temp to preserve n for final comparison", "% 10 extracts digit, / 10 removes it"],
+    blanks: [
+        { text: "sum=$((sum + digit * digit * digit))", hint: "Add cube of each digit" },
+        { text: "if [ $sum -eq $n ]", hint: "Compare sum with original" }
+    ],
+    quiz: {
+        question: "What is an Armstrong number?",
+        options: ["Sum of cubes of digits equals the number", "Sum of digits equals the number", "Product of digits equals the number", "Number divisible by all its digits"],
+        answer: 0,
+        explanation: "Example: 153 = 1³ + 5³ + 3³ = 1 + 125 + 27 = 153"
+    }
+},
+
+{
+    id: "shell-11",
+    category: "shell",
+    title: "Reverse String and Palindrome Check",
+    description: "Write a shell script to reverse a string and check whether a given string is palindrome or not",
+    code: `#!/bin/bash
+echo "Enter a string:"
+read str
+rev=$(echo $str | rev)
+echo "Reversed string = $rev"
+if [ "$str" = "$rev" ]
+then
+    echo "$str is a Palindrome"
+else
+    echo "$str is not a Palindrome"
+fi`,
+    language: "bash",
+    concepts: ["rev command reverses a string", "Use = (not -eq) to compare strings", "Quote variables \"$str\" to handle spaces", "$(…) captures command output"],
+    blanks: [
+        { text: "rev=$(echo $str | rev)", hint: "Reverse the string using rev command" },
+        { text: "if [ \"$str\" = \"$rev\" ]", hint: "Compare original and reversed" }
+    ],
+    quiz: {
+        question: "Which command reverses a string in shell?",
+        options: ["rev", "reverse", "str -r", "flip"],
+        answer: 0,
+        explanation: "The 'rev' command reverses the characters of each line of input"
+    }
+},
+
+{
+    id: "shell-12",
+    category: "shell",
+    title: "Count Lines, Words and Characters",
+    description: "Write a shell script to count no of line, words and characters of a input file",
+    code: `#!/bin/bash
+echo "Enter filename:"
+read filename
+lines=$(wc -l < $filename)
+words=$(wc -w < $filename)
+chars=$(wc -c < $filename)
+echo "Lines      = $lines"
+echo "Words      = $words"
+echo "Characters = $chars"`,
+    language: "bash",
+    concepts: ["wc -l counts lines", "wc -w counts words", "wc -c counts characters/bytes", "< redirects file as input to command"],
+    blanks: [
+        { text: "wc -l < $filename", hint: "Count lines in file" },
+        { text: "wc -w < $filename", hint: "Count words in file" }
+    ],
+    quiz: {
+        question: "What does wc -w count?",
+        options: ["Words", "Lines", "Characters", "Bytes"],
+        answer: 0,
+        explanation: "wc -w counts the number of words; -l for lines, -c for characters"
+    }
+},
+
+{
+    id: "shell-13",
+    category: "shell",
+    title: "Factorial of a Number",
+    description: "Write a shell script find the factorial of a given number",
+    code: `#!/bin/bash
+echo "Enter a number:"
+read n
+fact=1
+for (( i=1; i<=n; i++ ))
+do
+    fact=$((fact * i))
+done
+echo "Factorial of $n = $fact"`,
+    language: "bash",
+    concepts: ["fact starts at 1 (not 0)", "for loop from 1 to n", "fact = fact * i accumulates product", "$(( )) for arithmetic"],
+    blanks: [
+        { text: "fact=$((fact * i))", hint: "Multiply fact by current i" }
+    ],
+    quiz: {
+        question: "Why initialize fact = 1 and not 0?",
+        options: ["Multiplying by 0 gives 0 always", "1 is just a convention", "0 causes error", "Loop starts at 0"],
+        answer: 0,
+        explanation: "If fact starts at 0, any multiplication gives 0. We need 1 as the identity element for multiplication"
+    }
+},
+
+{
+    id: "shell-14",
+    category: "shell",
+    title: "Gross Salary Calculation",
+    description: "Employee Basic Pay is input through keyboard. DA is 40% of basic pay and HRA is 20% of basic pay. Write a shell script to calculate gross salary.",
+    code: `#!/bin/bash
+
+echo "Enter Basic Pay:"
+read basic
+
+da=$(echo "$basic * 0.40" | bc)
+hra=$(echo "$basic * 0.20" | bc)
+
+gross=$(echo "$basic + $da + $hra" | bc)
+
+echo "Basic Pay: $basic"
+echo "DA (40%): $da"
+echo "HRA (20%): $hra"
+echo "Gross Salary: $gross"`,
+    language: "bash",
+    concepts: ["DA = 40% of basic", "HRA = 20% of basic", "Gross = Basic + DA + HRA", "bc used for decimal math"],
+    blanks: [
+        { text: "$basic * 40 / 100", hint: "40% of basic for DA" },
+        { text: "$basic + $da + $hra", hint: "Gross = Basic + DA + HRA" }
+    ],
+    quiz: {
+        question: "Gross Salary formula is?",
+        options: ["Basic + DA + HRA", "Basic + DA", "Basic * 1.6", "Basic - Tax"],
+        answer: 0,
+        explanation: "Gross Salary = Basic Pay + DA (40%) + HRA (20%)"
+    }
+},
+
+{
+    id: "shell-15",
+    category: "shell",
+    title: "Good Morning / Afternoon / Evening",
+    description: "Write a shell script which displays Good Morning / Good Afternoon / Good Evening depending on the time it gets executed",
+    code: `#!/bin/bash
+hour=$(date +%H)
+if [ $hour -lt 12 ]
+then
+    echo "Good Morning!"
+elif [ $hour -lt 17 ]
+then
+    echo "Good Afternoon!"
+else
+    echo "Good Evening!"
+fi`,
+    language: "bash",
+    concepts: ["date +%H gets current hour (0-23)", "-lt means less than", "Hour < 12 → Morning, 12-16 → Afternoon, 17+ → Evening"],
+    blanks: [
+        { text: "hour=$(date +%H)", hint: "Get current hour using date command" },
+        { text: "$hour -lt 12", hint: "Before 12 means morning" }
+    ],
+    quiz: {
+        question: "What does date +%H return?",
+        options: ["Current hour in 24-hour format", "Current date", "Current minute", "Current second"],
+        answer: 0,
+        explanation: "date +%H returns hour in 24-hour format (00 to 23)"
+    }
 }
 
 ];
